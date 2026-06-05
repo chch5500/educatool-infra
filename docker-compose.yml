@@ -66,8 +66,12 @@ services:
       MINIO_PORT: 9000
       MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
       MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
+      CHOKIDAR_USEPOLLING: "true"
     ports:
       - "8000:8000"
+    volumes:
+      - ../educatool-backend:/app
+      - /app/node_modules
     depends_on:
       postgres:
         condition: service_healthy
@@ -84,6 +88,9 @@ services:
       VITE_API_URL: http://backend:8000
     ports:
       - "3000:5173"
+    volumes:
+      - ../educatool-frontend:/app
+      - /app/node_modules
     depends_on:
       - backend
 
